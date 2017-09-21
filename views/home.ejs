@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>brn</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <style>
+  .box-content{
+    background: yellow;
+  }
+  section{
+    text-align: center;
+  }
+  </style>
+  </head>
+<div class="container">
+    <div class="one-column-content box-content">
+    <h1>Seqüência de Cinco</h1>
+    <h2>Contribuição de: Denis Costa</h2>
+    Você está resolvendo este problema.
+    <br><p>
+      Este problema foi utilizado em 109 Dojo(s).
+    </p>
+    <div id="descricao_problema">
+      <p>Dado uma matriz de números inteiros positivos de dimensões&nbsp;<strong>n x n</strong>, onde <strong>n &gt;= 5</strong>, encontre o maior produto de uma seqüência de 5 números consecutivos (a seqüência pode estar na vertical, na horizontal ou na diagonal).</p>
+      <p>Por exemplo, a matriz abaixo retorna 32:</p>
+      <pre>
+        2 1 1 1 1
+        1 2 1 1 1
+        1 1 2 1 1
+        1 1 1 2 1
+        1 1 1 1 2
+      </pre>
+    </div>
+    </div>
+    <hr>
+    <section>
+    <h1>Exemplo:</h1>
+    <div class="col-md-6">
+      <h2>MATRIZ</h2>
+      <span id="matriz1">
+      </span>
+    </div>
+    <div class="col-md-6">
+      <h2>RESULTADO</h2>
+      <span id="potencia1">
+
+      </span>
+    </div>
+</div>
+</section>
+<script type="text/javascript">
+  var matriz1 = <%= JSON.stringify(matriz) %>
+  for (var i=0; i < matriz1.length; i++){
+    $("#matriz1").append(matriz1[i]+"<br> ");
+  }
+  var potencias=[];
+  var principal=1;
+  var secundaria=1;
+  linha=1;
+  coluna=1;
+  //diagonal secundaria
+  for (var i=0; i < matriz1.length; i++){
+    for (var j=0; j < matriz1.length; j++){
+        if(i + j == matriz1.length -	1){
+        secundaria=secundaria*matriz1[i][j];
+      }
+    }
+  }
+  potencias.push(secundaria);
+  //diagonal principal
+  for (var i=0; i < matriz1.length; i++){
+    for (var j=0; j < matriz1.length; j++){
+      if(i==j){
+        principal=principal*matriz1[i][j];
+        if(j==4&&i==4){
+            //$("#potencia1").append(principal+" ");
+        }
+      }
+    }
+  }
+  potencias.push(principal);
+  //linhas
+  for(var i=0; i<matriz1.length; i++) {
+    var linhas = 1;
+    for (var j=0; j<matriz1[i].length; j++) {
+        linhas = linhas*matriz1[j][i];
+    }
+    potencias.push(linhas);
+    //$("#potencia1").append(linhas);
+  }
+  //colunas
+  var t = 1;
+  for (i=0; i<matriz1.length; i++){
+    for (j=0; j<matriz1.length; j++){
+      t = t * matriz1[i][j];
+    }
+    potencias.push(t);
+    //$("#potencia1").append(t+" ");
+    t = 1;
+  }
+  var maior = Math.max.apply(null, potencias);
+
+  $("#potencia1").append("A potencia de maior numero entre todas as diagonais, linhas e colunas da matriz é "+maior);
+
+</script>
+</html>
